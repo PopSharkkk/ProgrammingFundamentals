@@ -47,12 +47,10 @@ Repositori ini memuat implementasi konsep-konsep inti pemrograman imperatif dan 
 
 ```text
 ProgrammingFundamentals/
-├── 5025251024_.../     # Tugas rutin mingguan per sesi praktikum
-├── Assignment/         # Latihan soal dan tugas pemrograman tematik
-├── Tutorial/           # Modul bimbingan dan hands-on praktikum
-├── Quiz/               # Evaluasi berkala dan latihan kuis algoritma
-├── Remidial ETS 1/     # Latihan dan pembahasan evaluasi tengah semester
-└── EAS & EAS Practice/ # Soal dan persiapan evaluasi akhir semester
+├── Assignment/         # Latihan soal tematik (Tugas 1-8) & tugas mingguan (S_1 - S_7)
+├── tutorials/          # Modul bimbingan dan hands-on praktikum (Tutorial 1-5)
+├── tests/              # Evaluasi berkala, ETS, dan EAS (Remidial ETS 1, EAS, EAS Practice)
+└── Quiz/               # Kuis praktikum dan latihan kuis algoritma
 ```
 
 ---

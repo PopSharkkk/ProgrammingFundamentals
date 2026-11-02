@@ -1,86 +1,79 @@
-# Programming Fundamentals (Dasar Pemrograman)
+# Programming Fundamentals (C Language)
 
-Repository ini berisi kumpulan tugas, praktikum, latihan, dan evaluasi mata kuliah **Dasar Pemrograman** (*Programming Fundamentals*) menggunakan bahasa **C**.
-
----
-
-## 👤 Informasi Mahasiswa
-- **Nama** : Rinaltra Nabasa Simanungkalit
-- **NRP**  : 5025251024
-- **Program Studi** : Teknik Informatika
-- **Perguruan Tinggi** : Institut Teknologi Sepuluh Nopember (ITS)
+Kumpulan kode sumber, modul praktikum, tugas terstruktur, dan materi evaluasi untuk pembelajaran **Dasar Pemrograman** (*Programming Fundamentals*) menggunakan bahasa pemrograman **C**.
 
 ---
 
-## 📂 Struktur Repositori
+## 📌 Deskripsi Repositori
 
-Repositori ini terbagi menjadi dua bagian materi perkuliahan:
-
-### 1. Tugas Rutin Praktikum Mingguan
-Diorganisir per pertemuan/pekan dengan format folder `5025251024_Rinaltra Nabasa S_<Pekan>/`:
-
-| Folder | Topik & Deskripsi Masalah | File C Utama |
-| :--- | :--- | :--- |
-| **`S_1`** | Pengenalan Sintaks C, Input/Output, & Operasi Dasar | `5025251024_2.c`, `5025251024_3.c`, `5025251024_7.c` |
-| **`S_2`** | Ekspresi Matematika & Aproksimasi (Gosper's Formula) | `5025251024_4.c`, `5025251024_7.c`, `5025251024_12.c` |
-| **`S_3`** | Struktur Kontrol Percabangan (*Selection / Conditionals*) | `5025251024_1.c`, `5025251024_6.c`, `5025251024_9.c` |
-| **`S_4`** | Perulangan (*Loops*) & Tabel Perhitungan Finansial / Fisika | `5025251024_3.c`, `5025251024_5.c`, `5025251024_7_vehicle_speeds.c` |
-| **`S_5`** | Fungsi Modular (*Modular Functions*) & Menu Interaktif | `5025251024_2.c` (Asisten Laju Infus), `5025251024_5.c`, `5025251024_6.c` |
-| **`S_6`** | Array 1D/2D, Pemrosesan File, & Analisis Data | `5025251024_2.c` (Polygon Area), `5025251024_5.c` (Barcode Validator), `5025251024_10.c` (Election Tally) |
-| **`S_7`** | Array String, Algoritma Pencarian & Pengurutan (*Sorting & Search*) | `5025251024_2.c` (Resistor Color Code), `5025251024_6.c` (Parallel Array Sort), `5025251024_10.c` (ACLS Drug Assistant) |
-
-Setiap folder mingguan dilengkapi dengan file source code (`*.c`), file executable hasil kompilasi (`*.exe`), file data uji (`*.txt`), dan bukti tangkapan layar terminal (`*.png`).
+Repositori ini memuat implementasi konsep-konsep inti pemrograman imperatif dan prosedural. Materi disusun secara bertahap mulai dari pemahaman sintaks dasar, logika komputasi, struktur data primitif, hingga penerapan algoritma pencarian dan pengurutan data.
 
 ---
 
-### 2. Modul Tugas, Tutorial, Kuis, & Ujian
-Koleksi materi praktikum intensif, kuis, persiapan evaluasi tengah & akhir semester:
+## 📚 Topik & Silabus Pembelajaran
 
-| Direktori | Deskripsi & Cakupan Topik |
-| :--- | :--- |
-| **`Assignment/`** | Koleksi latihan pemrograman terstruktur: **Tugas 1** s/d **Tugas 8** (sintaks dasar, percabangan, perulangan, fungsi modular, manipulasi string, rekursi, hingga binary search). |
-| **`Tutorial/`** | Pengenalan dasar bahasa C, struktur program, input/output (`scanf`, `printf`). |
-| **`Tutorial 2/`** | Struktur kondisi dan logika (cek ganjil/genap, tahun kabisat, konversi nilai/grade, simulasi tarif BBM, kalkulator). |
-| **`Tutorial 3/`** | Perulangan bersarang (*nested loops*), deret angka, dan pembentukan pola karakter. |
-| **`Tutorial 4/`** | Implementasi fungsi berparameter, *pass-by-value* vs *pass-by-reference*, dan array numerik. |
-| **`Tutorial 5/`** | Pemrosesan string lanjutan (deteksi panjang string, komparasi kata, konkatenasi, penghitung kata, filter karakter, dan deteksi palindrom). |
-| **`Quiz/` & `Quiz Prac/`** | Latihan dan soal evaluasi kuis praktikum (algoritma pencarian biner, *insertion sort*, manipulasi pointer, dan operasi matriks 2D). |
-| **`Remidial ETS 1/`** | Pembahasan dan latihan remedial Evaluasi Tengah Semester (Air Quality Index / AQI, perhitungan jarak Manhattan, pola belah ketupat/piramida terbalik, dan sensor kata). |
-| **`EAS/`** | Soal dan penyelesaian Evaluasi Akhir Semester (kalkulator BMI, pola geometri, analisis statistik data, deret segitiga, manipulasi matriks, pengurutan data numerik, dekripsi pesan rahasia, dan pengurutan kata). |
-| **`EAS Practice/`** | Latihan soal intensif persiapan EAS (fungsi rekursif deret bilangan, faktorial, fibonacci, pencarian nilai maksimum dan penjumlahan deret). |
+1. **Konsep Dasar & Alur Program**
+   - Sintaks dasar, tipe data primitif, dan operator aritmatika/logika
+   - Standar input/output (`scanf`, `printf`) serta format specifiers
+
+2. **Struktur Kontrol**
+   - Percabangan: `if-else`, *nested conditionals*, dan `switch-case`
+   - Perulangan: `for`, `while`, `do-while`, dan *nested loops*
+
+3. **Modularitas & Fungsi**
+   - Desain fungsi modular (*user-defined functions*)
+   - Mekanisme parameter (*pass-by-value* dan *pass-by-reference*)
+   - Konsep fungsi rekursif (*recursion*)
+
+4. **Struktur Data Terstruktur**
+   - Array satu dimensi (1D) dan dua dimensi (2D / matriks)
+   - Manipulasi string dan pemrosesan karakter (`string.h`)
+   - Tipe data bentukan (*struct*)
+
+5. **Pointer & Manajemen Memori**
+   - Dasar konsep pointer, alamat memori, dan dereferensi
+   - Pointer aritmatika dan integrasi pointer dengan array/fungsi
+
+6. **Algoritma Dasar**
+   - Algoritma Pencarian: *Linear Search* & *Binary Search*
+   - Algoritma Pengurutan: *Bubble Sort*, *Selection Sort*, & *Insertion Sort*
+
+7. **Pemrosesan File (*File I/O*)**
+   - Pembacaan dan penulisan berkas (`fopen`, `fscanf`, `fprintf`, `fclose`)
+
+---
+
+## 📂 Struktur Direktori
+
+```text
+ProgrammingFundamentals/
+├── 5025251024_.../     # Tugas rutin mingguan per sesi praktikum
+├── Assignment/         # Latihan soal dan tugas pemrograman tematik
+├── Tutorial/           # Modul bimbingan dan hands-on praktikum
+├── Quiz/               # Evaluasi berkala dan latihan kuis algoritma
+├── Remidial ETS 1/     # Latihan dan pembahasan evaluasi tengah semester
+└── EAS & EAS Practice/ # Soal dan persiapan evaluasi akhir semester
+```
 
 ---
 
 ## 🛠️ Kompilasi dan Menjalankan Program
 
-Program dapat dikompilasi menggunakan compiler **GCC (MinGW)** di Windows, Linux, maupun macOS.
+Program dalam repositori ini dapat dikompilasi menggunakan compiler **GCC** (GNU Compiler Collection).
 
 ### 1. Kompilasi
-Buka terminal / PowerShell di direktori file yang ingin dijalankan:
+Buka terminal pada direktori file `.c` yang ingin dijalankan:
 ```bash
-gcc nama_file.c -o nama_file -lm
+gcc nama_program.c -o nama_program -lm
 ```
-*(Tambahkan `-lm` jika kode menggunakan library `<math.h>`)*
+> *Catatan: Tambahkan flag `-lm` apabila program memanfaatkan fungsi matematika dari pustaka `<math.h>`.*
 
 ### 2. Eksekusi
-```powershell
-.\nama_file
-```
-
----
-
-## 📝 Highlight Tugas Pekan 7 (`S_7`)
-
-1. **Soal 2 — Resistor Color Codes Decoder (`5025251024_2.c`)**
-   - Mendekode pita warna resistor menjadi nilai resistansi dalam satuan **kilo-ohms**.
-   - Menyediakan fungsi pembantu `search()` untuk mencocokkan string nama warna ke index tabel kode warna.
-   - Dilengkapi validasi input warna serta perulangan decoding interaktif.
-
-2. **Soal 6 — Parallel Arrays Sorter (`5025251024_6.c`)**
-   - Menyimpan daftar nama (*last name first*) dan umur ke dalam *parallel arrays*.
-   - Mengurutkan daftar nama secara alfabetis (*A–Z*) menggunakan algoritma pengurutan dan menjaga sinkronisasi umur masing-masing individu secara presisi.
-
-3. **Soal 10 — ACLS Drug Assistant (`5025251024_10.c`)**
-   - Membaca file data `drugs.txt` yang memuat nama obat resusitasi jantung (*Advanced Cardiac Life Support*) dan petunjuk dosis/administrasinya.
-   - Mengubah tanda titik-koma (`;`) menjadi baris baru (`\n`) agar instruksi tersaji rapi per baris.
-   - Menyediakan pencarian interaktif berbasis 3 karakter awalan nama obat atau `q` untuk keluar.
+- **Windows (PowerShell / CMD):**
+  ```powershell
+  .\nama_program.exe
+  ```
+- **Linux / macOS:**
+  ```bash
+  ./nama_program
+  ```

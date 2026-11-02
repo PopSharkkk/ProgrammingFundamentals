@@ -12,22 +12,24 @@ void display_list(char names[][NAME_LEN], int ages[], int count) {
 }
 
 // Function to sort names alphabetically and keep ages synchronized
+// Utilizes strcmp() for lexicographical comparison and strcpy() for string swapping
 void sort_parallel(char names[][NAME_LEN], int ages[], int count) {
     for (int i = 0; i < count - 1; i++) {
         int min_idx = i;
         for (int j = i + 1; j < count; j++) {
+            // String comparison using strcmp from <string.h>
             if (strcmp(names[j], names[min_idx]) < 0) {
                 min_idx = j;
             }
         }
         if (min_idx != i) {
-            // Swap names
+            // Swap strings using strcpy from <string.h>
             char temp_name[NAME_LEN];
             strcpy(temp_name, names[i]);
             strcpy(names[i], names[min_idx]);
             strcpy(names[min_idx], temp_name);
 
-            // Swap ages
+            // Swap corresponding ages in parallel array
             int temp_age = ages[i];
             ages[i] = ages[min_idx];
             ages[min_idx] = temp_age;
@@ -37,6 +39,7 @@ void sort_parallel(char names[][NAME_LEN], int ages[], int count) {
 
 int main() {
     // Initial parallel arrays based on the problem statement
+    // names: 2D char array storing list of strings
     char names[MAX_PEOPLE][NAME_LEN] = {
         "Ryan, Elizabeth",
         "McIntyre, Osborne",
@@ -53,7 +56,7 @@ int main() {
     printf("-------------------------------------\n");
     display_list(names, ages, count);
 
-    // Sort arrays in parallel
+    // Sort arrays in parallel using string operations
     sort_parallel(names, ages, count);
 
     // Display alphabetized list

@@ -3,16 +3,17 @@
 #include <math.h>
 
 #define NUM_COLORS 10
-#define MAX_COLOR_LEN 7
+#define MAX_COLOR_LEN 10
 
-// Table of resistor color codes
+// Array of strings representing resistor color codes
 const char COLOR_CODES[NUM_COLORS][MAX_COLOR_LEN] = {
     "black", "brown", "red", "orange", "yellow",
     "green", "blue", "violet", "gray", "white"
 };
 
-// Helper function to search for a target color in the list
-// Returns subscript of matching element or -1 if not found
+// Helper function to search for a target color in the string array
+// Utilizes strcmp from <string.h> to find exact string match
+// Returns index (0-9) if found, or -1 if not found
 int search(const char list[][MAX_COLOR_LEN], int size, const char *target) {
     for (int i = 0; i < size; i++) {
         if (strcmp(list[i], target) == 0) {
@@ -23,7 +24,7 @@ int search(const char list[][MAX_COLOR_LEN], int size, const char *target) {
 }
 
 int main() {
-    char band1[20], band2[20], band3[20];
+    char band1[30], band2[30], band3[30];
     char reply[10];
     char again = 'y';
 
@@ -33,12 +34,13 @@ int main() {
         printf("only, NO CAPS.\n\n");
 
         printf("Band 1 => ");
-        if (scanf("%19s", band1) != 1) break;
+        if (scanf("%29s", band1) != 1) break;
         printf("Band 2 => ");
-        if (scanf("%19s", band2) != 1) break;
+        if (scanf("%29s", band2) != 1) break;
         printf("Band 3 => ");
-        if (scanf("%19s", band3) != 1) break;
+        if (scanf("%29s", band3) != 1) break;
 
+        // Perform linear search on string array using helper function
         int b1 = search(COLOR_CODES, NUM_COLORS, band1);
         int b2 = search(COLOR_CODES, NUM_COLORS, band2);
         int b3 = search(COLOR_CODES, NUM_COLORS, band3);

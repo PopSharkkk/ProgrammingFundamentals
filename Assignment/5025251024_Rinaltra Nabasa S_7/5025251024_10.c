@@ -1,26 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
 #define MAX_DRUGS 50
 #define MAX_NAME_LEN 50
-#define MAX_INSTR_LEN 250
+#define MAX_INSTR_LEN 121
 #define FILENAME "drugs.txt"
 
-// Case-insensitive comparison for up to n characters
-int str_nicmp(const char *s1, const char *s2, size_t n) {
-    for (size_t i = 0; i < n; i++) {
-        unsigned char c1 = (unsigned char)tolower((unsigned char)s1[i]);
-        unsigned char c2 = (unsigned char)tolower((unsigned char)s2[i]);
-        if (c1 != c2 || c1 == '\0') {
-            return c1 - c2;
-        }
-    }
-    return 0;
-}
-
-// Function to create default data file if not present
+// Function to ensure the data file exists
 void ensure_data_file() {
     FILE *fp = fopen(FILENAME, "r");
     if (fp == NULL) {
@@ -41,6 +28,7 @@ void ensure_data_file() {
 }
 
 // Function to load drug names and instructions from data file
+// Scans drug names into an array of strings and dosing instructions into a second array of strings
 int load_drugs(const char *filename, char drug_names[][MAX_NAME_LEN], char instructions[][MAX_INSTR_LEN], int max_drugs) {
     FILE *fp = fopen(filename, "r");
     if (!fp) {
@@ -52,36 +40,37 @@ int load_drugs(const char *filename, char drug_names[][MAX_NAME_LEN], char instr
     int count = 0;
 
     while (count < max_drugs && fgets(line, sizeof(line), fp)) {
-        // Strip trailing \r and \n
-        size_t len = strlen(line);
-        while (len > 0 && (line[len - 1] == '\n' || line[len - 1] == '\r')) {
-            line[--len] = '\0';
+        // Strip trailing newline characters
+        size_t line_len = strlen(line);
+        while (line_len > 0 && (line[line_len - 1] == '\n' || line[line_len - 1] == '\r')) {
+            line[--line_len] = '\0';
         }
+        if (line_len == 0) continue;
 
-        if (len == 0) continue;
-
+        // Scan drug name and raw instruction string
         char raw_instr[MAX_INSTR_LEN] = "";
         if (sscanf(line, "%s %[^\n]", drug_names[count], raw_instr) >= 1) {
-            // Process instructions: replace ';' with '\n'
-            size_t raw_len = strlen(raw_instr);
-            // Remove trailing semicolon if present
-            while (raw_len > 0 && (raw_instr[raw_len - 1] == ';' || raw_instr[raw_len - 1] == ' ')) {
-                raw_instr[--raw_len] = '\0';
-            }
-
-            int dest_idx = 0;
-            for (size_t j = 0; j < raw_len; j++) {
-                if (raw_instr[j] == ';') {
-                    instructions[count][dest_idx++] = '\n';
-                    // Skip any whitespace immediately following semicolon
-                    while (j + 1 < raw_len && raw_instr[j + 1] == ' ') {
-                        j++;
-                    }
+            // String manipulation: Replace all semicolons (';') with newline ('\n')
+            char *src = raw_instr;
+            char *dst = instructions[count];
+            while (*src != '\0') {
+                if (*src == ';') {
+                    *dst++ = '\n';
+                    src++;
+                    // Skip optional space following semicolon for clean formatting
+                    while (*src == ' ') src++;
                 } else {
-                    instructions[count][dest_idx++] = raw_instr[j];
+                    *dst++ = *src++;
                 }
             }
-            instructions[count][dest_idx] = '\0';
+            *dst = '\0';
+
+            // Remove trailing newline if instruction ended with a semicolon
+            size_t instr_len = strlen(instructions[count]);
+            while (instr_len > 0 && instructions[count][instr_len - 1] == '\n') {
+                instructions[count][--instr_len] = '\0';
+            }
+
             count++;
         }
     }
@@ -90,9 +79,21 @@ int load_drugs(const char *filename, char drug_names[][MAX_NAME_LEN], char instr
     return count;
 }
 
+// Search helper function using strncmp from <string.h>
+// Compares the first 3 characters of the query with drug names
+int search_drug(const char drug_names[][MAX_NAME_LEN], int count, const char *target) {
+    for (int i = 0; i < count; i++) {
+        if (strncmp(target, drug_names[i], 3) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 int main() {
     ensure_data_file();
 
+    // Arrays of strings for drug names and dosing instructions
     char drug_names[MAX_DRUGS][MAX_NAME_LEN];
     char instructions[MAX_DRUGS][MAX_INSTR_LEN];
 
@@ -112,19 +113,15 @@ int main() {
         printf("Enter drug code (first 3 chars or 'q' to quit): ");
         if (scanf("%49s", query) != 1) break;
 
+        // Exit condition using strcmp / strncmp from <string.h>
         if (strcmp(query, "q") == 0 || strcmp(query, "Q") == 0 ||
-            str_nicmp(query, "quit", 4) == 0) {
+            strncmp(query, "quit", 4) == 0) {
             printf("\nExiting program. Goodbye!\n");
             break;
         }
 
-        int found_idx = -1;
-        for (int i = 0; i < num_drugs; i++) {
-            if (str_nicmp(query, drug_names[i], 3) == 0) {
-                found_idx = i;
-                break;
-            }
-        }
+        // Search for requested drug using 3-character prefix matching (strncmp)
+        int found_idx = search_drug(drug_names, num_drugs, query);
 
         if (found_idx != -1) {
             printf("\nDrug: %s\n", drug_names[found_idx]);

@@ -1,0 +1,1 @@
+{"name":"Local: 3","url":"c:\\Coding (University)\\Programming Fundamentals (Mr. Rizky)\\Quiz\\Quiz Prac\\3.c","tests":[{"id":1765355408082,"input":"3 4\n1 2 3 4\n5 6 7 8\n9 1 1 1\n2","output":"26"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Coding (University)\\Programming Fundamentals (Mr. Rizky)\\Quiz\\Quiz Prac\\3.c","group":"local","local":true}

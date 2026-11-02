@@ -1,77 +1,109 @@
-# Programming Fundamentals (C Language)
+<div align="center">
 
-Kumpulan kode sumber, modul praktikum, tugas terstruktur, dan materi evaluasi untuk pembelajaran **Dasar Pemrograman** (*Programming Fundamentals*) menggunakan bahasa pemrograman **C**.
+# Programming Fundamentals
+### A structured study of procedural programming and algorithmic problem solving in C.
 
----
+[![Language](https://img.shields.io/badge/Language-C11-00599C?style=flat-square&logo=c&logoColor=white)](https://en.wikipedia.org/wiki/C11_(C_language_revision))
+[![Compiler](https://img.shields.io/badge/Compiler-GCC-4B5563?style=flat-square&logo=gnu&logoColor=white)](https://gcc.gnu.org/)
+[![Platform](https://img.shields.io/badge/Platform-Cross--Platform-1F2937?style=flat-square)](https://github.com/PopSharkkk/ProgrammingFundamentals)
+[![Status](https://img.shields.io/badge/Coursework-Active-059669?style=flat-square)]()
 
-## 📌 Deskripsi Repositori
-
-Repositori ini memuat implementasi konsep-konsep inti pemrograman imperatif dan prosedural. Materi disusun secara bertahap mulai dari pemahaman sintaks dasar, logika komputasi, struktur data primitif, hingga penerapan algoritma pencarian dan pengurutan data.
-
----
-
-## 📚 Topik & Silabus Pembelajaran
-
-1. **Konsep Dasar & Alur Program**
-   - Sintaks dasar, tipe data primitif, dan operator aritmatika/logika
-   - Standar input/output (`scanf`, `printf`) serta format specifiers
-
-2. **Struktur Kontrol**
-   - Percabangan: `if-else`, *nested conditionals*, dan `switch-case`
-   - Perulangan: `for`, `while`, `do-while`, dan *nested loops*
-
-3. **Modularitas & Fungsi**
-   - Desain fungsi modular (*user-defined functions*)
-   - Mekanisme parameter (*pass-by-value* dan *pass-by-reference*)
-   - Konsep fungsi rekursif (*recursion*)
-
-4. **Struktur Data Terstruktur**
-   - Array satu dimensi (1D) dan dua dimensi (2D / matriks)
-   - Manipulasi string dan pemrosesan karakter (`string.h`)
-   - Tipe data bentukan (*struct*)
-
-5. **Pointer & Manajemen Memori**
-   - Dasar konsep pointer, alamat memori, dan dereferensi
-   - Pointer aritmatika dan integrasi pointer dengan array/fungsi
-
-6. **Algoritma Dasar**
-   - Algoritma Pencarian: *Linear Search* & *Binary Search*
-   - Algoritma Pengurutan: *Bubble Sort*, *Selection Sort*, & *Insertion Sort*
-
-7. **Pemrosesan File (*File I/O*)**
-   - Pembacaan dan penulisan berkas (`fopen`, `fscanf`, `fprintf`, `fclose`)
+</div>
 
 ---
 
-## 📂 Struktur Direktori
+## Overview
+
+This repository represents a rigorous, comprehensive exploration of imperative systems programming and core computational problem solving using the **C programming language**. 
+
+Engineered with an emphasis on memory consciousness, algorithmic precision, and clean code hygiene, the codebase spans from foundational control flow to pointer mechanics, multi-dimensional structures, recursion, and search-and-sort paradigms.
+
+---
+
+## Core Pillars
+
+<div align="center">
+
+| Pillar | Focus | Concepts |
+| :--- | :--- | :--- |
+| **01. Foundations** | Syntax & Control Flow | Primitives, I/O streams, branch prediction, iterative evaluation |
+| **02. Modularity** | Procedural Abstraction | Stack frame allocation, pass-by-reference semantics, recursion |
+| **03. Memory & Pointers** | Low-Level Access | Pointer arithmetic, memory addressing, dereferencing, buffer handling |
+| **04. Structured Data** | Collections & Records | Vectorized arrays, matrix transformations, string tokenization, structs |
+| **05. Algorithms** | Search & Sorting | Binary search, linear heuristics, insertion sort, asymptotic efficiency |
+
+</div>
+
+---
+
+## Repository Architecture
+
+The project is organized into dedicated, modular directories separating weekly coursework, thematic problem sets, laboratory tutorials, and examination suites.
 
 ```text
 ProgrammingFundamentals/
-├── Assignment/         # Latihan soal tematik (Tugas 1-8) & tugas mingguan (S_1 - S_7)
-├── tutorials/          # Modul bimbingan dan hands-on praktikum (Tutorial 1-5)
-├── tests/              # Evaluasi berkala, ETS, dan EAS (Remidial ETS 1, EAS, EAS Practice)
-└── Quiz/               # Kuis praktikum dan latihan kuis algoritma
+├── Assignment/
+│   ├── 5025251024_... S_1 to S_7/     # Weekly laboratory assignments & terminal records
+│   └── Tugas 1 to Tugas 8/            # Thematic problem sets (Algorithms, Recursion, Strings)
+│
+├── tutorials/
+│   ├── Tutorial/                      # Module 01: Core syntax & streams
+│   ├── Tutorial 2/                    # Module 02: Conditional logic & expressions
+│   ├── Tutorial 3/                    # Module 03: Iterations, nested loops & geometry
+│   ├── Tutorial 4/                    # Module 04: Functions, scope & numerical arrays
+│   └── Tutorial 5/                    # Module 05: String buffers & text manipulation
+│
+├── tests/
+│   ├── EAS/                           # Final semester evaluations & practical solutions
+│   ├── EAS Practice/                  # Advanced problem sets (Recurrences & math models)
+│   └── Remidial ETS 1/                # Midterm evaluations & pattern optimization
+│
+├── Quiz/                              # Rapid competitive challenges & pointer quizzes
+├── .gitignore                         # Environment & build artifact filters
+└── README.md                          # Repository documentation & guide
 ```
 
 ---
 
-## 🛠️ Kompilasi dan Menjalankan Program
+## Toolchain & Build Guide
 
-Program dalam repositori ini dapat dikompilasi menggunakan compiler **GCC** (GNU Compiler Collection).
+### Prerequisites
 
-### 1. Kompilasi
-Buka terminal pada direktori file `.c` yang ingin dijalankan:
+All implementations adhere to modern **C11 / POSIX** standards and are verified against **GCC (GNU Compiler Collection)**.
+
+- **Compiler**: GCC 11.0+ or Clang 13.0+
+- **Build Target**: Native binary executable (`.exe` on Windows, ELF binary on Linux/macOS)
+
+### 1. Compilation
+To build any module with standard optimization and math linking:
 ```bash
-gcc nama_program.c -o nama_program -lm
+gcc -O2 -std=c11 <filename>.c -o <output_name> -lm
 ```
-> *Catatan: Tambahkan flag `-lm` apabila program memanfaatkan fungsi matematika dari pustaka `<math.h>`.*
+> [!NOTE]
+> The `-lm` flag links the standard mathematical library (`<math.h>`) when trigonometric or exponential computations are evaluated.
 
-### 2. Eksekusi
-- **Windows (PowerShell / CMD):**
-  ```powershell
-  .\nama_program.exe
-  ```
-- **Linux / macOS:**
+### 2. Execution
+- **macOS / Linux:**
   ```bash
-  ./nama_program
+  ./<output_name>
   ```
+- **Windows (PowerShell / Command Prompt):**
+  ```powershell
+  .\<output_name>.exe
+  ```
+
+---
+
+## Engineering Standards
+
+- **Memory Hygiene**: Deterministic allocation, boundary enforcement on string buffers, and explicit cleanup.
+- **Syntactic Restraint**: Idiomatic C with meaningful identifiers, defensive bounds checking, and predictable return codes.
+- **Portability**: Source code designed to build deterministically across Windows, macOS, and Linux toolchains.
+
+---
+
+<div align="center">
+
+<sub>Curated with care for academic excellence and foundational engineering mastery.</sub>
+
+</div>

@@ -43,7 +43,7 @@ The project is organized into modular directories categorizing weekly coursework
 ```text
 ProgrammingFundamentals/
 ├── Assignment/
-│   ├── 5025251024_... S_1 to S_7/     # Weekly laboratory assignments & terminal records
+│   ├── 5025251024_... S_1 to S_9/     # Weekly laboratory assignments & terminal records
 │   └── Tugas 1 to Tugas 8/            # Thematic problem sets (Algorithms, Recursion, Strings)
 │
 ├── Practical Exam/

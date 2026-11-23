@@ -1,141 +1,179 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#define GRID_SIZE 5
+#define STR_LEN 50
 
 /*
- * Initial grid configuration from Figure 9.27
- * y-coordinates: 4 (top) to 0 (bottom)
- * x-coordinates: 0 (left) to 4 (right)
+ * User-defined type to represent a date
  */
-const int INITIAL_GRID[GRID_SIZE][GRID_SIZE] = {
-    /* y = 0 */ {0, 1, 0, 1, 1},
-    /* y = 1 */ {1, 0, 0, 0, 1},
-    /* y = 2 */ {0, 0, 1, 0, 1},
-    /* y = 3 */ {0, 1, 1, 0, 0},
-    /* y = 4 */ {1, 1, 0, 0, 0}
-};
+typedef struct {
+    int month;
+    int day;
+    int year;
+} date_t;
 
 /*
- * Function: blob_check
+ * User-defined type to represent a vehicle's gas tank
+ */
+typedef struct {
+    double capacity;      // Tank capacity in gallons
+    double current_level; // Current fuel level in gallons
+} tank_t;
+
+/*
+ * User-defined type to represent an automobile
+ */
+typedef struct {
+    char make[STR_LEN];
+    char model[STR_LEN];
+    int odometer;
+    date_t manufacture_date;
+    date_t purchase_date;
+    tank_t gas_tank;
+} auto_t;
+
+/*
+ * Function: scan_date
+ * -------------------
+ * Scans month, day, and year for a date_t structure from input stream.
+ * Returns 1 on success, EOF on end of file.
+ */
+int scan_date(FILE *fp, date_t *d) {
+    if (fscanf(fp, "%d %d %d", &d->month, &d->day, &d->year) == 3) {
+        return 1;
+    }
+    return EOF;
+}
+
+/*
+ * Function: scan_tank
+ * -------------------
+ * Scans tank capacity and current fuel level for a tank_t structure.
+ * Returns 1 on success, EOF on end of file.
+ */
+int scan_tank(FILE *fp, tank_t *t) {
+    if (fscanf(fp, "%lf %lf", &t->capacity, &t->current_level) == 2) {
+        return 1;
+    }
+    return EOF;
+}
+
+/*
+ * Function: scan_auto
+ * -------------------
+ * Scans all components of an automobile from input stream.
+ * Returns 1 on success, EOF on end of file.
+ */
+int scan_auto(FILE *fp, auto_t *a) {
+    if (fscanf(fp, "%49s %49s %d", a->make, a->model, &a->odometer) != 3) {
+        return EOF;
+    }
+    if (scan_date(fp, &a->manufacture_date) == EOF) return EOF;
+    if (scan_date(fp, &a->purchase_date) == EOF) return EOF;
+    if (scan_tank(fp, &a->gas_tank) == EOF) return EOF;
+    return 1;
+}
+
+/*
+ * Function: print_date
  * --------------------
- * Recursively counts the number of pixels belonging to a blob (object).
- * Parameters:
- *   grid - 2D array of cells (0 = empty, 1 = filled)
- *   x    - x-coordinate (column, 0 to 4)
- *   y    - y-coordinate (row, 0 to 4)
- *
- * Returns:
- *   Number of cells in the blob to which cell (x, y) belongs.
+ * Displays date in MM/DD/YYYY format.
  */
-int blob_check(int grid[GRID_SIZE][GRID_SIZE], int x, int y) {
-    // Case 1: Cell is outside the grid bounds
-    if (x < 0 || x >= GRID_SIZE || y < 0 || y >= GRID_SIZE) {
-        return 0;
-    }
-
-    // Case 2: Cell is empty (0)
-    if (grid[y][x] == 0) {
-        return 0;
-    }
-
-    // Case 3: Cell is on the grid and filled (1)
-    // Mark cell as empty (0) to avoid counting it more than once
-    grid[y][x] = 0;
-
-    // Value returned is 1 plus the sizes of blobs containing each of its eight neighbors
-    int count = 1;
-    for (int dy = -1; dy <= 1; dy++) {
-        for (int dx = -1; dx <= 1; dx++) {
-            if (dx != 0 || dy != 0) {
-                count += blob_check(grid, x + dx, y + dy);
-            }
-        }
-    }
-
-    return count;
+void print_date(date_t d) {
+    printf("%02d/%02d/%04d", d.month, d.day, d.year);
 }
 
-// Helper function to print the 5x5 grid with coordinate axes
-void print_grid(const int grid[GRID_SIZE][GRID_SIZE]) {
-    printf("   y\\x  0 1 2 3 4\n");
-    printf("  +---------------\n");
-    for (int y = GRID_SIZE - 1; y >= 0; y--) {
-        printf("  %2d | ", y);
-        for (int x = 0; x < GRID_SIZE; x++) {
-            printf(" %d", grid[y][x]);
-        }
-        printf("\n");
-    }
+/*
+ * Function: print_tank
+ * --------------------
+ * Displays fuel tank capacity, current level, and percentage.
+ */
+void print_tank(tank_t t) {
+    double pct = (t.capacity > 0.0) ? (t.current_level / t.capacity) * 100.0 : 0.0;
+    printf("%.1f / %.1f gallons (%.1f%% full)", t.current_level, t.capacity, pct);
 }
 
-// Helper to copy initial grid into a working grid
-void reset_grid(int dest[GRID_SIZE][GRID_SIZE], const int src[GRID_SIZE][GRID_SIZE]) {
-    for (int y = 0; y < GRID_SIZE; y++) {
-        for (int x = 0; x < GRID_SIZE; x++) {
-            dest[y][x] = src[y][x];
-        }
+/*
+ * Function: print_auto
+ * --------------------
+ * Displays the complete automobile record in a formatted block.
+ */
+void print_auto(auto_t a) {
+    printf("  +---------------------------------------------------\n");
+    printf("  | Make & Model      : %s %s\n", a.make, a.model);
+    printf("  | Odometer Reading  : %d miles\n", a.odometer);
+    printf("  | Manufacture Date  : ");
+    print_date(a.manufacture_date);
+    printf("\n");
+    printf("  | Purchase Date     : ");
+    print_date(a.purchase_date);
+    printf("\n");
+    printf("  | Gas Tank Status   : ");
+    print_tank(a.gas_tank);
+    printf("\n");
+    printf("  +---------------------------------------------------\n");
+}
+
+/*
+ * Helper to ensure sample data file exists
+ */
+void create_sample_file(const char *filename) {
+    FILE *fp = fopen(filename, "w");
+    if (fp != NULL) {
+        fprintf(fp, "Mercury Sable    99842 1 18 2001 5 30 1991 16   12.5\n");
+        fprintf(fp, "Mazda   Navajo   123961 2 20 1993 6 15 1993 19.3 16.7\n");
+        fclose(fp);
     }
 }
 
-int main() {
-    int working_grid[GRID_SIZE][GRID_SIZE];
-
+int main(int argc, char *argv[]) {
     printf("====================================================\n");
-    printf("  PROGRAM 1: PIXEL COUNTING (BLOB DETECTION)        \n");
+    printf("  PROGRAM 1: AUTOMOBILE STRUCTURE RECORD (auto_t)   \n");
     printf("  Name: Rinaltra Nabasa Simanungkalit | NRP: 5025251024\n");
     printf("====================================================\n\n");
 
-    printf("Original Grid (Figure 9.27):\n");
-    reset_grid(working_grid, INITIAL_GRID);
-    print_grid(working_grid);
-    printf("\n");
+    const char *data_filename = "auto_data.txt";
+    create_sample_file(data_filename);
 
-    // Test cases matching the blobs in Figure 9.27
-    printf("Testing individual blob queries (fresh grid for each query):\n");
-
-    // Test 1: Blob 1 starting at (0, 4)
-    reset_grid(working_grid, INITIAL_GRID);
-    int size1 = blob_check(working_grid, 0, 4);
-    printf("- Query blob_check at (0, 4): Size = %d cells (Blob 1)\n", size1);
-
-    // Test 2: Blob 2 starting at (0, 1)
-    reset_grid(working_grid, INITIAL_GRID);
-    int size2 = blob_check(working_grid, 0, 1);
-    printf("- Query blob_check at (0, 1): Size = %d cells (Blob 2)\n", size2);
-
-    // Test 3: Blob 3 starting at (4, 2)
-    reset_grid(working_grid, INITIAL_GRID);
-    int size3 = blob_check(working_grid, 4, 2);
-    printf("- Query blob_check at (4, 2): Size = %d cells (Blob 3)\n", size3);
-
-    // Test 4: Query empty cell (0, 0)
-    reset_grid(working_grid, INITIAL_GRID);
-    int size_empty = blob_check(working_grid, 0, 0);
-    printf("- Query blob_check at (0, 0): Size = %d cells (Empty cell)\n", size_empty);
-
-    // Test 5: Query out of bounds (5, 5)
-    reset_grid(working_grid, INITIAL_GRID);
-    int size_oob = blob_check(working_grid, 5, 5);
-    printf("- Query blob_check at (5, 5): Size = %d cells (Out of bounds)\n\n", size_oob);
-
-    // Full grid scan to detect all distinct blobs
-    printf("Scanning grid to detect all distinct blobs:\n");
-    reset_grid(working_grid, INITIAL_GRID);
-    int blob_count = 0;
-    int total_pixels = 0;
-
-    for (int y = GRID_SIZE - 1; y >= 0; y--) {
-        for (int x = 0; x < GRID_SIZE; x++) {
-            if (working_grid[y][x] == 1) {
-                blob_count++;
-                int b_size = blob_check(working_grid, x, y);
-                total_pixels += b_size;
-                printf("  -> Found Blob #%d starting at (%d, %d): Size = %d pixels\n",
-                       blob_count, x, y, b_size);
-            }
+    FILE *fp = NULL;
+    if (argc > 1) {
+        fp = fopen(argv[1], "r");
+        if (fp == NULL) {
+            printf("Notice: Could not open %s. Using default %s\n", argv[1], data_filename);
+            fp = fopen(data_filename, "r");
         }
+    } else {
+        fp = fopen(data_filename, "r");
     }
-    printf("\nSummary: Total Blobs = %d, Total Pixels = %d\n", blob_count, total_pixels);
 
+    if (fp == NULL) {
+        printf("Error: Could not open input data source.\n");
+        return 1;
+    }
+
+    printf("Input Data Set:\n");
+    printf("----------------------------------------------------\n");
+    printf("  Make     Model     Odom   Mfg Date   Purch Date  Tank (Cap/Lvl)\n");
+    printf("  Mercury  Sable     99842  01/18/2001 05/30/1991  16.0 / 12.5 gal\n");
+    printf("  Mazda    Navajo    123961 02/20/1993 06/15/1993  19.3 / 16.7 gal\n");
+    printf("----------------------------------------------------\n\n");
+
+    printf("Processing Automobile Records until EOF:\n\n");
+
+    auto_t current_car;
+    int record_count = 0;
+
+    // Driver loop: repeatedly fills and displays auto structure until EOF
+    while (scan_auto(fp, &current_car) != EOF) {
+        record_count++;
+        printf("Record #%d:\n", record_count);
+        print_auto(current_car);
+        printf("\n");
+    }
+
+    printf("End of File (EOF) reached. Total automobiles processed: %d\n", record_count);
+
+    fclose(fp);
     return 0;
 }

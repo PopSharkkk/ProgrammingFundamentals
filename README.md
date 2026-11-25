@@ -38,29 +38,18 @@ Engineered with an emphasis on low-level memory awareness, algorithmic efficienc
 
 ## Repository Architecture
 
-The project is organized into modular directories categorizing weekly coursework, thematic problem sets, practical lab exams, tutorials, and examination suites:
+The project is organized into modular directories categorizing coursework by academic year, practical lab exams, tutorials, and examination suites:
 
 ```text
 ProgrammingFundamentals/
 ├── Assignment/
-│   ├── 5025251024_... S_1 to S_10/    # Weekly laboratory assignments & terminal records
-│   └── Tugas 1 to Tugas 8/            # Thematic problem sets (Algorithms, Recursion, Strings)
+│   ├── 2025/                          # Coursework under Mr. Rizky (Tugas 1 to Tugas 8)
+│   └── 2026/                          # Weekly laboratory coursework & records (S_1 to S_10)
 │
-├── Practical Exam/
-│   └── Modul 3/                       # Lab Practicum Module 3 (Recursive algorithms, sieve, grid DFS, etc.)
-│
-├── tutorials/
-│   ├── Tutorial/                      # Module 01: Core syntax & streams
-│   ├── Tutorial 2/                    # Module 02: Conditional logic & expressions
-│   ├── Tutorial 3/                    # Module 03: Iterations, nested loops & geometry
-│   ├── Tutorial 4/                    # Module 04: Functions, scope & numerical arrays
-│   └── Tutorial 5/                    # Module 05: String buffers & text manipulation
-│
-├── tests/
-│   ├── EAS/                           # Final semester evaluations & practical solutions
-│   ├── EAS Practice/                  # Advanced problem sets (Recurrences & math models)
-│   └── Remidial ETS 1/                # Midterm evaluations & pattern optimization
-│
+├── Lab Session/                       # Practical lab sessions (Module 0 to Module 4)
+├── Practical Exam/                    # Practical programming examinations (Modul 1 to Modul 3)
+├── tests-2025/                        # Examinations (EAS, EAS Practice, Remidial ETS 1)
+├── tutorials-2025/                    # Core tutorials & exercises (Tutorial 1 to 5)
 ├── Quiz/                              # Rapid competitive challenges & pointer quizzes
 ├── .gitignore                         # Environment & build artifact filters
 └── README.md                          # Repository documentation & guide

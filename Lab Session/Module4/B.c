@@ -1,11 +1,5 @@
 #include <stdio.h>
 
-/*
- * Pegasus Parade
- * Membalik setiap blok berukuran K menggunakan dua pointer
- * tanpa menggunakan indeks [ ] di dalam fungsi balik.
- */
-
 void balik(int *awal, int *akhir) {
     while (awal < akhir) {
         int temp = *awal;
@@ -22,10 +16,9 @@ int main() {
 
     int arr[1005];
     for (int i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);
+        if (scanf("%d", &arr[i]) != 1) return 0;
     }
 
-    /* Proses setiap blok berukuran K */
     for (int i = 0; i < n; i += k) {
         int akhir_idx = i + k - 1;
         if (akhir_idx >= n) {
@@ -34,7 +27,6 @@ int main() {
         balik(&arr[i], &arr[akhir_idx]);
     }
 
-    /* Cetak hasil */
     for (int i = 0; i < n; i++) {
         printf("%d%c", arr[i], (i == n - 1) ? '\n' : ' ');
     }

@@ -1,20 +1,14 @@
 #include <stdio.h>
 
-/*
- * Magic Pocket
- * Menghitung A + B, |A - B|, dan A * B menggunakan pointer.
- * Menggunakan long long agar aman dari overflow (A, B <= 10^9).
- */
-
 void hitung(long long a, long long b, long long *jumlah, long long *selisih, long long *kali) {
     *jumlah = a + b;
-    
+
     if (a >= b) {
         *selisih = a - b;
     } else {
         *selisih = b - a;
     }
-    
+
     *kali = a * b;
 }
 

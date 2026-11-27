@@ -1,57 +1,54 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
 
-/*
- * Hachi's Garden Map
- * Memutar peta R x C sejauh 90 derajat searah jarum jam (menjadi C x R).
- * Menggunakan alokasi dinamis (malloc & free).
- */
+struct Barang {
+    char nama[35];
+    long long harga;
+    long long stok;
+};
 
-int **buatMatriks(int baris, int kolom) {
-    int **m = (int **)malloc(baris * sizeof(int *));
-    for (int i = 0; i < baris; i++) {
-        m[i] = (int *)malloc(kolom * sizeof(int));
+struct Barang* cariBarang(struct Barang *daftar, int n, const char *namaDicari) {
+    for (int i = 0; i < n; i++) {
+        if (strcmp((daftar + i)->nama, namaDicari) == 0) {
+            return (daftar + i);
+        }
     }
-    return m;
-}
-
-void hapusMatriks(int **m, int baris) {
-    for (int i = 0; i < baris; i++) {
-        free(m[i]);
-    }
-    free(m);
+    return NULL;
 }
 
 int main() {
-    int r, c;
-    if (scanf("%d %d", &r, &c) != 2) return 0;
+    int n;
+    if (scanf("%d", &n) != 1) return 0;
 
-    /* Buat dan baca peta awal (R baris x C kolom) */
-    int **peta = buatMatriks(r, c);
-    for (int i = 0; i < r; i++) {
-        for (int j = 0; j < c; j++) {
-            scanf("%d", &peta[i][j]);
+    struct Barang barang[105];
+    for (int i = 0; i < n; i++) {
+        if (scanf("%34s %lld %lld", barang[i].nama, &barang[i].harga, &barang[i].stok) != 3) return 0;
+    }
+
+    int q;
+    if (scanf("%d", &q) != 1) return 0;
+
+    for (int i = 0; i < q; i++) {
+        char namaPesanan[35];
+        long long jumlah;
+        if (scanf("%34s %lld", namaPesanan, &jumlah) != 2) return 0;
+
+        struct Barang *ptr = cariBarang(barang, n, namaPesanan);
+        if (ptr == NULL) {
+            printf("Barang %s tidak ditemukan\n", namaPesanan);
+        } else if (ptr->stok < jumlah) {
+            printf("Stok %s tidak cukup (tersisa %lld)\n", ptr->nama, ptr->stok);
+        } else {
+            ptr->stok -= jumlah;
+            long long total = ptr->harga * jumlah;
+            printf("Total bayar %s: %lld\n", ptr->nama, total);
         }
     }
 
-    /* Buat peta hasil putaran 90 derajat searah jarum jam (C baris x R kolom) */
-    int **hasil = buatMatriks(c, r);
-    for (int i = 0; i < c; i++) {
-        for (int j = 0; j < r; j++) {
-            hasil[i][j] = peta[r - 1 - j][i];
-        }
+    printf("Sisa stok:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%s %lld\n", barang[i].nama, barang[i].stok);
     }
-
-    /* Cetak peta hasil */
-    for (int i = 0; i < c; i++) {
-        for (int j = 0; j < r; j++) {
-            printf("%d%c", hasil[i][j], (j == r - 1) ? '\n' : ' ');
-        }
-    }
-
-    /* Bebaskan memori */
-    hapusMatriks(peta, r);
-    hapusMatriks(hasil, c);
 
     return 0;
 }
